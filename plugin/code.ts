@@ -71,11 +71,7 @@ const selectionIds = (selection: ReadonlyArray<SceneNode>) =>
 let selection: ReadonlyArray<SceneNode> = [];
 
 async function serialize(
-  element: DefaultContainerMixin &
-    BaseNode &
-    FrameNode &
-    RectangleNode &
-    TextNode,
+  element: any,
   options: {
     withImages?: boolean;
     withChildren?: boolean;
@@ -141,7 +137,7 @@ async function serialize(
         element.children &&
         !isSvg &&
         (await Promise.all(
-          element.children.map(child => serialize(child as any, options))
+          element.children.map((child: any) => serialize(child as any, options))
         ))) ||
       undefined,
     constraints: element.constraints,

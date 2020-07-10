@@ -29,8 +29,8 @@ import TabletMac from "@material-ui/icons/TabletMac";
 import UnfoldLess from "@material-ui/icons/UnfoldLess";
 import UnfoldMore from "@material-ui/icons/UnfoldMore";
 import ViewColumn from "@material-ui/icons/ViewColumn";
-import * as escapeHtml from "escape-html";
-import * as fileType from "file-type";
+import escapeHtml from "escape-html";
+import { fromBuffer as fileType } from "file-type/browser";
 import { action, computed, observable, when } from "mobx";
 import { observer } from "mobx-react";
 import * as React from "react";
@@ -187,7 +187,7 @@ async function processImages(layer: Node) {
                 convertToSvg(text);
               } else {
                 const arrayBuffer = await res.arrayBuffer();
-                const type = fileType(arrayBuffer);
+                const type = await fileType(arrayBuffer);
                 if (
                   type &&
                   (type.ext.includes("svg") || type.mime.includes("svg"))
